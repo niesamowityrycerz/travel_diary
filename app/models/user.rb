@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :travel_notes, foreign_key: :travaler_id, dependent: :destroy 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable,
