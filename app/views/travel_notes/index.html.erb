@@ -1,16 +1,31 @@
-<ol>
-  <%= form_with model: TravelNote.new do |note| %>
-    <%= note.label 'From' %>
-    <li><%= note.text_area :city %></li>
-    <li><%= note.text_area :body, size: "70x5" %></li>
-    <li><u><%= note.submit 'Save' %></u></li>
-  <% end %>
-</ol>
+<div class='container'>
+  <div class='row'>
+    <div class='col-4'>
+      <h1>Form</h1>
+      <%= form_with model: TravelNote.new, remote: true,class: 'note-form' do |note| %>
+        <%= note.text_area :city, placeholder: 'City' %>
+        <%= note.text_area :body, size: "70x5", placeholder: 'Note' %>
+        <u><%= note.submit 'Save', class:'submit' %></u>
+      <% end %>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-6'>
+      <% if @travel_notes.nil? %>
+        <h1>Add your first note!</h1>
+      <% else %>
+        <h1> Old notes</h1>
+      <% end %>
+      <table class="table" id='travel-notes'>
+        <tbody>
+          <%= render partial: 'travel_note', collection: @travel_notes %>
+        </tbody>
+      </table>
+      <%= paginate @travel_notes, window: 2 %>
+    </div>
+  </div>
+</div>
 
-<% if @travel_notes.any? %>
-  <%= render partial: 'travel_note', collection: @travel_notes %>
-<% else %>
-  <h1>Add your first travel note!</h1>
-<% end %>
+
 
 

@@ -1,0 +1,8 @@
+$('.submit').on('click', function() {
+  $('form').find("textarea#travel_note_body, textarea#travel_note_city").val('');
+});
+$('table#travel-notes tbody').prepend("<%= j render @travel_note %>");
+
+
+
+
