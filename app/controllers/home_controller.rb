@@ -13,4 +13,5 @@ class HomeController < ApplicationController
       format.json { render json: @greetings }
     end
   end
+
 end

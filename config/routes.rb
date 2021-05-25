@@ -4,4 +4,6 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   # omniauth_callbacks points to Users::OmniauthCallbacks
+
+  resources :travel_notes, only: [:index, :create] 
 end

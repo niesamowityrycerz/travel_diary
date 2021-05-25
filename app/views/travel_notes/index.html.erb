@@ -1,0 +1,16 @@
+<ol>
+  <%= form_with model: TravelNote.new do |note| %>
+    <%= note.label 'From' %>
+    <li><%= note.text_area :city %></li>
+    <li><%= note.text_area :body, size: "70x5" %></li>
+    <li><u><%= note.submit 'Save' %></u></li>
+  <% end %>
+</ol>
+
+<% if @travel_notes.any? %>
+  <%= render partial: 'travel_note', collection: @travel_notes %>
+<% else %>
+  <h1>Add your first travel note!</h1>
+<% end %>
+
+
