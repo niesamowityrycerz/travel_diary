@@ -1,26 +1,26 @@
 class TravelNotesController < ApplicationController
 
-  before_action :authenticate_user!
-  before_action :check_city_params, only: [:create]
+  #before_action :authenticate_user!
+  before_action :call_city, only: [:create]
 
   def index
-    @travel_notes = current_user.travel_notes.order('created_at DESC').page(params[:page] || 0)
+    #@travel_notes = current_user.travel_notes.order('created_at DESC').page(params[:page] || 0)
+    
   end
 
   def create
     # TODO -> error handling
 
-    api_key = Rails.application.credentials.dig(:open_weather_api, :api_key)
-    celsius = 'metric'
-    url = "https://api.openweathermap.org/data/2.5/weather?q=#{travel_note_params[:city]}&units=#{celsius}&appid=#{api_key}"
-    response = HTTParty.get(url)
-    current_temperature = response["main"]["temp"]
-
-
+    #api_key = Rails.application.credentials.dig(:open_weather_api, :api_key)
+    #celsius = 'metric'
+    #url = "https://api.openweathermap.org/data/2.5/weather?q=#{travel_note_params[:city]}&units=#{celsius}&appid=#{api_key}"
+    #response = HTTParty.get(url)
+    #current_temperature = response["main"]["temp"]
+    #response = ::Services::WeatherCallService.new(travel_note_params).call_weather
+ 
     params = travel_note_params.merge({
-      current_temperature: current_temperature
+      current_temperature: @current_temperature
     })
-
     @travel_note = current_user.travel_notes.new(params)
     respond_to do |format|
       if @travel_note.save
@@ -29,7 +29,7 @@ class TravelNotesController < ApplicationController
       else 
         format.html  { redirect_to travel_notes_path, flash: { error: @travel_note.errors.messages[:body].first } }
       end
-    end 
+    end   
   end
 
   def destroy
@@ -84,9 +84,12 @@ class TravelNotesController < ApplicationController
     params.require(:travel_note).permit(:body, :city, :current_temperature)
   end
 
-  def check_city_params
-    if params[:travel_note][:city].blank?
-      redirect_to travel_notes_path, flash: { error: 'City cannot be empty!' }
+  def call_city
+    weather_api = ::Services::WeatherCallService.new(travel_note_params).call_weather
+    if weather_api.success?
+      @current_temperature = weather_api["main"]["temp"]
+    else
+      redirect_to travel_notes_path, flash: { error: weather_api["message"] }
     end
   end
 end
