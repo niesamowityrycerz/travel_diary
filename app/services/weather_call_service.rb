@@ -7,10 +7,6 @@ class WeatherCallService
 
   attr_reader :celsius, :api_key
 
-  def valid_city?(city)
-    
-  end
-
   def call_weather
     get_weather(@city)
   end
