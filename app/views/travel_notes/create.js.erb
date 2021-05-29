@@ -1,6 +1,7 @@
-$('.submit').click(function() {
-  $(this).parent('table#travel-notes tbody').prepend("<%= j render @travel_note %>");
-});
+var clicks = $('.submit').click();
+if (clicks) {
+  $('table#travel-notes tbody').prepend("<%= j render @travel_note %>");
+}
 
 
 
