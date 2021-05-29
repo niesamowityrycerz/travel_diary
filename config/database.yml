@@ -82,4 +82,5 @@ production:
   <<: *default
   database: travel_dairy_production
   username: <%= ENV['USER'] %>
+  url: <%= ENV['DATABASE_URL'] %>
   #password: <%= ENV['TRAVEL_DAIRY_DATABASE_PASSWORD'] %>
