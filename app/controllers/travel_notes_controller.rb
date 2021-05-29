@@ -64,7 +64,7 @@ class TravelNotesController < ApplicationController
   end
 
   def call_city
-    weather_api = ::Services::WeatherCallService.new(travel_note_params).call_weather
+    weather_api = ::WeatherCallService.new(travel_note_params).call_weather
     if weather_api.success?
       @current_temperature = weather_api["main"]["temp"]
     else
