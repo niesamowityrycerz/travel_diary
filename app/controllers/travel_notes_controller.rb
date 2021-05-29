@@ -1,23 +1,13 @@
 class TravelNotesController < ApplicationController
 
-  #before_action :authenticate_user!
-  before_action :call_city, only: [:create]
+  before_action :authenticate_user!
+  before_action :call_city, only: [:create, :update]
 
   def index
-    #@travel_notes = current_user.travel_notes.order('created_at DESC').page(params[:page] || 0)
-    
+    @travel_notes = current_user.travel_notes.order('created_at DESC').page(params[:page] || 0)
   end
 
-  def create
-    # TODO -> error handling
-
-    #api_key = Rails.application.credentials.dig(:open_weather_api, :api_key)
-    #celsius = 'metric'
-    #url = "https://api.openweathermap.org/data/2.5/weather?q=#{travel_note_params[:city]}&units=#{celsius}&appid=#{api_key}"
-    #response = HTTParty.get(url)
-    #current_temperature = response["main"]["temp"]
-    #response = ::Services::WeatherCallService.new(travel_note_params).call_weather
- 
+  def create 
     params = travel_note_params.merge({
       current_temperature: @current_temperature
     })
@@ -51,21 +41,12 @@ class TravelNotesController < ApplicationController
 
   def update
     @travel_note = current_user.travel_notes.find_by(id: params[:id])
-    current_city = @travel_note.city 
-
-    if current_city != travel_note_params[:city] && !travel_note_params[:city].empty?
-      api_key = Rails.application.credentials.dig(:open_weather_api, :api_key)
-      celsius = 'metric'
-      url = "https://api.openweathermap.org/data/2.5/weather?q=#{travel_note_params[:city]}&units=#{celsius}&appid=#{api_key}"
-      response = HTTParty.get(url)
-      current_temperature = response["main"]["temp"]
-    end
 
     @updated_note = @travel_note.update(
       {
         city: travel_note_params[:city],
         body: travel_note_params[:body],
-        current_temperature: current_temperature
+        current_temperature: @current_temperature
       }.compact
     )
 
@@ -79,8 +60,6 @@ class TravelNotesController < ApplicationController
   private 
 
   def travel_note_params
-    # check if without :current_temperature it works 
-    # params.require(:travel_note).permit(:body, :city)
     params.require(:travel_note).permit(:body, :city, :current_temperature)
   end
 
