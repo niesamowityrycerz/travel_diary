@@ -1,5 +1,5 @@
 $('.submit').click(function() {
-  $('table#travel-notes tbody').prepend("<%= j render @travel_note %>");
+  $(this).parent('table#travel-notes tbody').prepend("<%= j render @travel_note %>");
 });
 
 
