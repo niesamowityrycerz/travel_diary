@@ -6,7 +6,7 @@
     <u><%= link_to 'Delete', travel_note_path(travel_note), method: :delete, remote: true %></u>
   </td>
 </tr>
-<tr class='bg-danger <%= travel_note.id %>'>
+<tr class='bg-active <%= travel_note.id %>'>
   <td colspan="4"><%= travel_note.body %></td>
 </tr>
 
