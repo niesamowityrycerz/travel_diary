@@ -6,7 +6,7 @@ class HomeController < ApplicationController
     if current_user 
       @greetings = { "welcome": "Hello #{current_user.username}" }
     else 
-      @greetings = { "welcome": "This is Traveler Dairy" }
+      @greetings = { "welcome": "This is Traveler Diary" }
     end 
   end
 

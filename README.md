@@ -1,24 +1,30 @@
-# README
+# Travel diary 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Table of contents
+* [Introduction](#introduction)
+* [Technologies](#technologies)
+* [Setup](#setup)
+* [Tests](#tests)
 
-Things you may want to cover:
+## Introduction
 
-* Ruby version
+This simple app allows you to quickly add/edit/delete short notes. When you type valid city Travel diary will make API call to external app - WeatherAPI and then attach the current temperature in that city to your note. Travel diary uses jquery to make views more responsive. Currently, you can only log in thorough google. Travel diary is also [in production]()
+## Technologies:
 
-* System dependencies
+* Ruby 2.7.0
+* Rails 6.0.3.7
+* Postgresql 1.2.3
+* jquery-rails 4.4.0
 
-* Configuration
+## Setup
 
-* Database creation
+Fork respository and ensure you have postgresql installed.Then run:
 
-* Database initialization
+```
+$ rake db:create db:migrate 
+```
 
-* How to run the test suite
+## Tests 
 
-* Services (job queues, cache servers, search engines, etc.)
+Soon will come.
 
-* Deployment instructions
-
-* ...
