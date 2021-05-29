@@ -1,0 +1,23 @@
+<div class='container d-flex justify-content-center align-items-center'>
+  <div class='row'>
+    <div class='col-4'>
+      <% if @travel_note.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@travel_note.errors.count, "error") %> prohibited this article from being saved:</h2>
+          <ul>
+            <% @travel_note.errors.each do |error| %>
+              <li><%= error %></li>
+            <% end %> 
+          </ul>
+        </div>
+      <% end %>
+      <h1>Edit travel note!</h1>
+      <%= form_with model: @travel_note  do |note| %>
+        <%= note.text_area :city, placeholder: 'City' %>
+        <%= note.text_area :body, size: "70x5", placeholder: 'Note' %>
+        <%= note.submit 'Edit', class:'submit' %>
+      <% end %>
+      <%= button_to "Go back", travel_notes_path, method: :get %>
+    </div>
+  </div>
+</div>

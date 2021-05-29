@@ -8,10 +8,6 @@ class HomeController < ApplicationController
     else 
       @greetings = { "welcome": "This is Traveler Dairy" }
     end 
-    respond_to do |format|  
-      format.html 
-      format.json { render json: @greetings }
-    end
   end
 
 end

@@ -1,12 +1,12 @@
-<tr id='<%= travel_note.id %>'>
-  <td style="width:20%"><%= travel_note.created_at.strftime('%d.%m.%y %H:%M') %></td>
+<tr class='<%= travel_note.id%>'>
+  <td style="width:20%"><%= travel_note.updated_at.strftime('%d.%m.%y %H:%M') %></td>
   <td style="width:50%"><%= travel_note.city %> <%= travel_note.current_temperature %>&#8451; </td>
-  <td style="width:15%"><u><%= link_to 'Edit'   %></u></td>
+  <td style="width:15%"><u><%= link_to 'Edit', edit_travel_note_path(travel_note) %></u></td>
   <td style="width:15%">
     <u><%= link_to 'Delete', travel_note_path(travel_note), method: :delete, remote: true %></u>
   </td>
 </tr>
-<tr class='bg-danger' id='<%= travel_note.id %>'>
+<tr class='bg-danger <%= travel_note.id %>'>
   <td colspan="4"><%= travel_note.body %></td>
 </tr>
 
